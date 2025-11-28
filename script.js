@@ -28,6 +28,33 @@
             interval = setInterval(()=>{ idx = (idx+1)%total; update(); }, 4500);
         }
         if(total>0){ renderDots(); update(); startSlider(); }
+        
+        // Fade-in lors du scroll — IntersectionObserver léger
+        (function () {
+            const selector = '.course, .plan, .instructor, .slide, .card-small, .hero-card';
+            const elems = Array.from(document.querySelectorAll(selector));
+            // ajouter la classe reveal et une variable d'index pour délai
+            elems.forEach((el, i) => {
+                el.classList.add('reveal');
+                el.style.setProperty('--i', i % 10); // cycle pour éviter délais trop grands
+            });
+
+            if ('IntersectionObserver' in window) {
+                const io = new IntersectionObserver((entries, obs) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('visible');
+                            obs.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.12 });
+
+                document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+            } else {
+                // fallback simple
+                document.querySelectorAll('.reveal').forEach(el => el.classList.add('visible'));
+            }
+        })();
 
         // contact form (demo)
         function handleSubmit(e){
@@ -42,3 +69,4 @@
             alert('Merci — votre message va être envoyé via votre client mail.');
             e.target.reset();
         }
+
