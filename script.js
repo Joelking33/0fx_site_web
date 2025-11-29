@@ -69,4 +69,61 @@
             alert('Merci — votre message va être envoyé via votre client mail.');
             e.target.reset();
         }
+// ...existing code...
+(function navHighlightOnScroll() {
+    const navLinks = Array.from(document.querySelectorAll('header nav a[href^="#"], #mobileNav nav a[href^="#"]'));
+    if (!navLinks.length) return;
+
+    const sections = navLinks
+        .map(a => document.querySelector(a.getAttribute('href')))
+        .filter(Boolean);
+
+    // Met à jour les classes actives
+    function setActive(id) {
+        navLinks.forEach(a => {
+            a.classList.toggle('active', a.getAttribute('href') === ('#' + id));
+        });
+    }
+
+    // IntersectionObserver pour détecter la section centrale
+    const io = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                setActive(entry.target.id);
+            }
+        });
+    }, {
+        root: null,
+        threshold: 0.3,
+        rootMargin: '0px 0px -40% 0px'
+    });
+
+    sections.forEach(s => io.observe(s));
+
+    // Clic sur lien -> smooth scroll + mise à jour immédiate
+    navLinks.forEach(a => {
+        a.addEventListener('click', (e) => {
+            const href = a.getAttribute('href');
+            if (!href || !href.startsWith('#')) return;
+            const target = document.querySelector(href);
+            if (target) {
+                e.preventDefault();
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                history.replaceState(null, '', href);
+                setActive(target.id);
+            }
+        });
+    });
+
+    // Au chargement, si hash présent, forcer l'activation
+    window.addEventListener('load', () => {
+        const hash = location.hash;
+        if (hash) {
+            const target = document.querySelector(hash);
+            if (target) setActive(target.id);
+        }
+    });
+})();
+
+
 
