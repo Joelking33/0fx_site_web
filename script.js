@@ -124,6 +124,36 @@
         }
     });
 })();
+// Gestion du changement de thème
+const themeToggle = document.getElementById('themeToggle');
+const htmlElement = document.documentElement;
+
+// Détectez le thème sauvegardé
+const savedTheme = localStorage.getItem('theme') || 'dark-mode';
+
+// Appliquez le thème au chargement
+function initTheme() {
+    if (savedTheme === 'light-theme') {
+        htmlElement.classList.add('light-theme');
+        themeToggle.classList.add('dark-mode');
+    } else {
+        htmlElement.classList.remove('light-theme');
+        themeToggle.classList.remove('dark-mode');
+    }
+}
+
+// Écoutez les clics sur le bouton
+themeToggle.addEventListener('click', () => {
+    htmlElement.classList.toggle('light-theme');
+    themeToggle.classList.toggle('dark-mode');
+    
+    const newTheme = htmlElement.classList.contains('light-theme') ? 'light-theme' : 'dark-mode';
+    localStorage.setItem('theme', newTheme);
+});
+
+// Initialisez le thème au chargement
+initTheme();
+
 
 
 
