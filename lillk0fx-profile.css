@@ -261,4 +261,64 @@
             .profile-stats {
                 grid-template-columns: 1fr;
             }
+
         }
+
+        /* Animation de flottaison pour l'avatar */
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        @keyframes wave {
+            0%, 100% {
+                transform: translateY(0px) rotateZ(0deg);
+            }
+            25% {
+                transform: translateY(-15px) rotateZ(2deg);
+            }
+            50% {
+                transform: translateY(-25px) rotateZ(0deg);
+            }
+            75% {
+                transform: translateY(-15px) rotateZ(-2deg);
+            }
+        }
+
+        .profile-avatar {
+            animation: wave 3s cubic-bezier(.2,.9,.2,1) infinite;
+            transform-origin: center;
+        }
+
+        /* Alternative : effet de flottaison plus doux */
+        .profile-avatar.gentle-float {
+            animation: float 4s ease-in-out infinite;
+        }
+
+        /* Ombre dynamique qui suit le mouvement */
+        .profile-avatar::after {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+            height: 15px;
+            background: radial-gradient(ellipse at center, rgba(0, 212, 161, 0.3) 0%, rgba(0, 212, 161, 0) 70%);
+            filter: blur(8px);
+            animation: shadowFloat 3s cubic-bezier(.2,.9,.2,1) infinite;
+        }
+
+        @keyframes shadowFloat {
+            0%, 100% {
+                transform: translateX(-50%) scaleX(1);
+            }
+            50% {
+                transform: translateX(-50%) scaleX(0.8);
+            }
+        }
+
