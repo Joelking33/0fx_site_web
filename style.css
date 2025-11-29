@@ -150,7 +150,6 @@ body {
     color: var(--text);
     transition: background-color 0.3s ease, color 0.3s ease;
 }
-/* ...existing code... */
 .container nav a.active {
     color: #00d4a1;
     font-weight: 700;
@@ -161,5 +160,82 @@ body {
 .container nav a.active {
     transform: translateY(-2px);
 }
+// ...existing code...
+
+/* Effet de zoom sur tous les boutons (sauf social buttons) */
+button:not(.social-btn),
+.cta:not(.social-btn),
+input[type="submit"]:not(.social-btn),
+input[type="button"]:not(.social-btn) {
+    position: relative;
+    overflow: hidden;
+    transition: all 280ms cubic-bezier(.2,.9,.2,1);
+}
+
+/* Effet de zoom au survol */
+button:not(.social-btn):hover,
+.cta:not(.social-btn):hover,
+input[type="submit"]:not(.social-btn):hover,
+input[type="button"]:not(.social-btn):hover {
+    transform: scale(1.08);
+    box-shadow: 0 12px 32px rgba(0, 212, 161, 0.35);
+}
+
+/* Effet au clic/press */
+button:not(.social-btn):active,
+.cta:not(.social-btn):active,
+input[type="submit"]:not(.social-btn):active,
+input[type="button"]:not(.social-btn):active {
+    transform: scale(0.96);
+}
+
+/* Ripple effect au survol */
+button:not(.social-btn)::before,
+.cta:not(.social-btn)::before,
+input[type="submit"]:not(.social-btn)::before,
+input[type="button"]:not(.social-btn)::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 600ms, height 600ms;
+    z-index: 0;
+    pointer-events: none;
+}
+
+button:not(.social-btn):hover::before,
+.cta:not(.social-btn):hover::before,
+input[type="submit"]:not(.social-btn):hover::before,
+input[type="button"]:not(.social-btn):hover::before {
+    width: 300px;
+    height: 300px;
+}
+
+/* Assurer que le texte reste au-dessus du ripple */
+button:not(.social-btn),
+.cta:not(.social-btn),
+input[type="submit"]:not(.social-btn),
+input[type="button"]:not(.social-btn) {
+    position: relative;
+    z-index: 1;
+}
+
+/* Accessibilité */
+@media (prefers-reduced-motion: reduce) {
+    button:not(.social-btn),
+    .cta:not(.social-btn),
+    input[type="submit"]:not(.social-btn),
+    input[type="button"]:not(.social-btn) {
+        transition: none !important;
+        transform: none !important;
+    }
+}
+
+
 
 
