@@ -290,7 +290,7 @@
         }
 
         .profile-avatar {
-            animation: wave 3s cubic-bezier(.2,.9,.2,1) infinite;
+            animation: float 4s ease-in-out infinite !important;
             transform-origin: center;
         }
 
@@ -321,4 +321,5 @@
                 transform: translateX(-50%) scaleX(0.8);
             }
         }
+
 
