@@ -235,6 +235,33 @@ input[type="button"]:not(.social-btn) {
         transform: none !important;
     }
 }
+.strike-fade {
+  position: relative;
+}
+
+.strike-fade::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 100%;
+  height: 2px;
+  background: red;
+  animation: fadeStrike 1s forwards;
+}
+
+@keyframes fadeStrike {
+  0% {
+    opacity: 0;
+    width: 0;
+  }
+  100% {
+    opacity: 1;
+    width: 100%;
+  }
+}
+
+
 
 
 
