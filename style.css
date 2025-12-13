@@ -240,7 +240,7 @@ input[type="button"]:not(.social-btn) {
 }
 
 .strike-fade::after {
-  content: "1000$";
+  content: "";
   position: absolute;
   left: 0;
   top: 50%;
@@ -260,6 +260,7 @@ input[type="button"]:not(.social-btn) {
     width: 100%;
   }
 }
+
 
 
 
